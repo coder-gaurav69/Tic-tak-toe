@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="./output.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+  
+  <div class="max-w-[100%] h-[100vh] bg-[#b8edf5] flex flex-col items-center justify-center relative ">
+    
+      <div class="text-[20px] flex sm:absolute sm:top-[75%]  sm:text-2xl relative top-[140px] md:absolute md:top-[20%] md:left-[5%]">
+        <label class="User">User_score (X) :</label>&ensp;
+        <p class="U_score">0</p>
+      </div>
+      
+      <div class="computer text-[20px] flex sm:absolute sm:top-[70%]  sm:text-2xl relative top-[145px] md:absolute md:top-[20%] md:right-[5%]">
+        <label class="User_type">Computer_score (O) :</label>&ensp;
+        <p class="C_score">0</p>
+      </div>
+
+      <div class="flex sm:flex-row  sm:gap-5 flex-col gap-y-1 sm:text-2xl text-xl absolute top-[10px]">
+
+        <div class="Game_mode">
+          <select id="gameModeSelect" >
+            <option class="placeholder" disabled selected value="">Select Game Mode</option>
+            <option value="computer">Play vs Computer</option>
+            <option value="friend">Play vs Friend</option>
+          </select>  
+        </div>
+        
+        <div class="match">
+          <select class="Match" id="matchSelect" onclick="match()">
+              <option class="placeholder" disabled selected value="">Match</option>
+              <option value="1">1</option>
+              <option value="3">3</option>
+              <option value="5">5</option>
+              <option value="7">7</option>
+          </select>
+        </div>
+
+      </div>
+      
+    <div class="result absolute sm:absolute sm:top-[70px] top-[120px] text-2xl"></div>
+    
+    <div class="md:w-[400px]  md:h-[400px] sm:w-[300px] sm:h-[300px] w-[200px] h-[200px] border border-black border-[2px] grid grid-rows-3 grid-cols-3 sm:relative sm:bottom-[50px] md:relative md:top-0 absolute">
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="entity border border-black border-[1px] flex justify-center items-center md:text-7xl text-4xl"></div>
+      <div class="line md:w-[400px] sm:w-[300px] w-[200px]"></div>  
+    </div>
+
+    <audio class="tick_sound">
+      <source src="tick.wav" type="audio/wav">
+    </audio>
+
+    <audio class="win_sound">
+      <source src="win.wav" type="audio/wav">
+    </audio>
+
+    <audio class="lose_sound">
+      <source src="lose.wav" type="audio/wav">
+    </audio>
+    
+    <button class="play absolute p-[5px] text-3xl bottom-10 border border-black border-[2px] rounded" onclick="start()">Start</button>
+
+
+  </div>
+
+</body>
+<script src="script.js"></script>
+</html>

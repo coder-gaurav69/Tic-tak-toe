@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin:0;
+    padding:0;
+}
+
+
+
+/* .entity:hover{
+    background:red;
+    transform:scale(1.05);
+} */
+
+.line{
+    /* width:400px; */
+    height:2px;
+    /* top:16.66%; */
+    /* transform:rotate(-135deg) scale(1.2); */
+    /* top:50%; */
+    /* right:0%; */
+    position:absolute;
+    display:none;
+    border: solid 2px red;
+}
+
+select {
+    width:100%;
+    text-align:center;
+  }
+option {
+    border:1px solid black;
+  }
+
+/* .play{
+    border:solid 1px black;
+    padding:10px;
+    font-size:40px;
+    position:absolute;
+    bottom:20px;
+    border-radius:25px;
+} */
+
+
