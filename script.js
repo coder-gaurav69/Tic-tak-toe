@@ -17,23 +17,24 @@ let result = document.querySelector(".result")
 
 
 function start(){
+
     result.innerHTML = ""
+
     GameMode = document.querySelector("#gameModeSelect")
-    console.log(GameMode.value)
     if(GameMode.value == "friend"){    
         document.querySelector(".User").innerHTML = "User1_score (X):";
         document.querySelector(".User_type").innerHTML = "User2_score (O):";
     }
     else{
-        document.querySelector(".User_type").innerHTML = "Computer_score:";
+        document.querySelector(".User_type").innerHTML = "Computer_score (O) :";
     }
    
     Match_value = parseInt(localStorage.getItem("match"));
     
     entity.forEach(function(a,i){
         
-        a.addEventListener("click",()=>{first_move(i)});
-        a.addEventListener("touchmove",()=>{first_move(i)})
+        // a.addEventListener("click",()=>{first_move(i)});
+        a.addEventListener("touchstart",()=>{first_move(i)})
             
     });
 
@@ -66,14 +67,13 @@ async function first_move(i){
             }
             
             if(gameEnded){
-                resetGame()
                 Match_value = Match_value > 0 ? Match_value - 1 : 0;
                 localStorage.setItem("match",Match_value);                       
+                resetGame()
             }
 
             if(Match_value == 0){
                 await win();
-                // GameMode.value = default
             }
 
         }
@@ -86,9 +86,9 @@ async function first_move(i){
 
 
             if(gameEnded){
-                resetGame()
                 Match_value = Match_value > 0 ? Match_value - 1 : 0;
                 localStorage.setItem("match",Match_value);                       
+                resetGame()
             }
 
             if(Match_value == 0){
@@ -434,14 +434,17 @@ function resetGame() {
         C++;
         Computer_score.innerHTML = C;
     }
+    console.log(Match_value)
 
-    setTimeout(()=>{
-        entity.forEach(function(a) {
-            a.innerHTML = ""; // Reset the entity's inner HTML
-            line.style.display = "none"
-            gameEnded = false
-        });
-    },2000)
+    if(Match_value != 0){
+        setTimeout(()=>{
+            entity.forEach(function(a) {
+                a.innerHTML = ""; // Reset the entity's inner HTML
+                line.style.display = "none"
+                gameEnded = false
+            });
+        },2000)
+    }
         
     start(); // Restart the game logic
 }
@@ -450,7 +453,6 @@ function resetGame() {
 window.addEventListener("load",()=>{
     localStorage.clear()
 })
-
 
 
 
