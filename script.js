@@ -21,6 +21,7 @@ function start(){
     result.innerHTML = "";
 
     GameMode = document.querySelector("#gameModeSelect")
+    Match_value = parseInt(localStorage.getItem("match"));
     if(GameMode.value == "friend"){    
         document.querySelector(".User").innerHTML = "User1_score (X):";
         document.querySelector(".User_type").innerHTML = "User2_score (O):";
@@ -29,73 +30,12 @@ function start(){
         document.querySelector(".User_type").innerHTML = "Computer_score (O) :";
     }
    
-    Match_value = parseInt(localStorage.getItem("match"));
     
     entity.forEach(function(a,i){
         
         a.addEventListener("click",()=>{first_move(i)});
-        a.addEventListener("touchstart",()=>async ()=>{
-
-            if(Match_value){
-
-                if( entity[i].innerHTML != "X" && entity[i].innerHTML != "O" && !gameEnded && !isComputerTurn && !user2){          // for user to tick 
-                    
-                    await tick();
-                    entity[i].innerHTML = "X";
-        
-                    if(GameMode.value == "computer"){
-                        isComputerTurn = true
-                    }
-                    else{
-                        user2 = true;
-                    }
-        
-                    winner_checker()
-        
-                    if(GameMode.value == "computer"){
-        
-                        await next_move()
-                        isComputerTurn = false
-        
-                    }
-                    
-                    if(gameEnded){
-                        Match_value = Match_value > 0 ? Match_value - 1 : 0;
-                        localStorage.setItem("match",Match_value);                       
-                        resetGame()
-                    }
-        
-                    if(Match_value == 0){
-                        await win();
-                    }
-        
-                }
-        
-                else if(entity[i].innerHTML != "X" && entity[i].innerHTML != "O" && GameMode.value == "friend" && !isComputerTurn){
-                    await tick();
-                    entity[i].innerHTML = "O";
-                    winner_checker()
-                    user2 = false;
-        
-        
-                    if(gameEnded){
-                        Match_value = Match_value > 0 ? Match_value - 1 : 0;
-                        localStorage.setItem("match",Match_value);                       
-                        resetGame()
-                    }
-        
-                    if(Match_value == 0){
-                        await win();
-                       
-                    }
-        
-                }
-        
-            }
-        })  
+        a.addEventListener("touchstart",()=>{first_move(i)})  
     });
-
-
         
 }
 
