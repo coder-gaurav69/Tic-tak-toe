@@ -18,7 +18,7 @@ let result = document.querySelector(".result")
 
 function start(){
 
-    result.innerHTML = ""
+    result.innerHTML = "";
 
     GameMode = document.querySelector("#gameModeSelect")
     if(GameMode.value == "friend"){    
@@ -33,10 +33,68 @@ function start(){
     
     entity.forEach(function(a,i){
         
-        // a.addEventListener("click",()=>{first_move(i)});
-        a.addEventListener("touchstart",()=>{first_move(i)})
-            
+        a.addEventListener("click",()=>{first_move(i)});
+        a.addEventListener("touchstart",()=>async ()=>{
+
+            if(Match_value){
+
+                if( entity[i].innerHTML != "X" && entity[i].innerHTML != "O" && !gameEnded && !isComputerTurn && !user2){          // for user to tick 
+                    
+                    await tick();
+                    entity[i].innerHTML = "X";
+        
+                    if(GameMode.value == "computer"){
+                        isComputerTurn = true
+                    }
+                    else{
+                        user2 = true;
+                    }
+        
+                    winner_checker()
+        
+                    if(GameMode.value == "computer"){
+        
+                        await next_move()
+                        isComputerTurn = false
+        
+                    }
+                    
+                    if(gameEnded){
+                        Match_value = Match_value > 0 ? Match_value - 1 : 0;
+                        localStorage.setItem("match",Match_value);                       
+                        resetGame()
+                    }
+        
+                    if(Match_value == 0){
+                        await win();
+                    }
+        
+                }
+        
+                else if(entity[i].innerHTML != "X" && entity[i].innerHTML != "O" && GameMode.value == "friend" && !isComputerTurn){
+                    await tick();
+                    entity[i].innerHTML = "O";
+                    winner_checker()
+                    user2 = false;
+        
+        
+                    if(gameEnded){
+                        Match_value = Match_value > 0 ? Match_value - 1 : 0;
+                        localStorage.setItem("match",Match_value);                       
+                        resetGame()
+                    }
+        
+                    if(Match_value == 0){
+                        await win();
+                       
+                    }
+        
+                }
+        
+            }
+        })  
     });
+
 
         
 }
@@ -453,6 +511,7 @@ function resetGame() {
 window.addEventListener("load",()=>{
     localStorage.clear()
 })
+
 
 
 
