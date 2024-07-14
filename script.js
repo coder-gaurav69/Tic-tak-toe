@@ -13,7 +13,7 @@ let tick_sound = document.querySelector(".tick_sound")
 let win_sound = document.querySelector(".win_sound")
 let lose_sound = document.querySelector(".lose_sound")
 let result = document.querySelector(".result")
-let Match = document.querySelector("#Match");
+let Match = document.querySelector("#Match_select");
 let mode  = document.querySelector("#gameModeSelect");
 let GameMode;
 let Match_value;
