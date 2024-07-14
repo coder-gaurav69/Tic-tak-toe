@@ -21,11 +21,14 @@ let GameMode;
 
 mode.addEventListener("click",()=>{
     GameMode = mode
+    result.innerHTML = GameMode.value;
 })
 
 
 Match.addEventListener("click",()=>{
     Match_value = Match.value;
+    result.innerHTML = Match_value;
+
 })
 
 play.addEventListener("click",()=>{
