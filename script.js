@@ -19,13 +19,13 @@ let mode  = document.querySelector("#gameModeSelect");
 let GameMode;
 
 
-mode.addEventListener("touchstart",()=>{
+mode.addEventListener("click",()=>{
     GameMode = mode
     result.innerHTML = GameMode.value;
 })
 
 
-Match.addEventListener("touchstart",()=>{
+Match.addEventListener("click",()=>{
     Match_value = Match.value;
     result.innerHTML = Match_value;
 
