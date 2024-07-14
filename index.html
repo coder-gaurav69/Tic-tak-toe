@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link href="./output.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
 </head>
 <body>
@@ -33,7 +33,7 @@
         </div>
         
         <div class="match">
-          <select class="Match" id="matchSelect" onclick="match()">
+          <select class="Match">
               <option class="placeholder" disabled selected value="">Match</option>
               <option value="1">1</option>
               <option value="3">3</option>
@@ -70,9 +70,10 @@
     <audio class="lose_sound">
       <source src="lose.wav" type="audio/wav">
     </audio>
-    
-    <button class="play absolute p-[5px] text-3xl bottom-10 border border-black border-[2px] rounded" onclick="start()">Start</button>
-
+    <div class="flex flex-row sm:gap-10 gap-5  absolute  sm:text-3xl text-2xl bottom-[50px]">
+      <button class="play p-[5px] border border-black border-[2px] rounded">Start</button>
+      <button class="reset p-[5px] border border-black border-[2px] rounded">Reset</button>
+    </div>
 
   </div>
 
