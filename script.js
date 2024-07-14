@@ -19,17 +19,20 @@ let mode  = document.querySelector("#gameModeSelect");
 let GameMode;
 
 
-mode.addEventListener("click",()=>{
-    GameMode = mode
-    result.innerHTML = GameMode.value;
-})
+document.addEventListener('DOMContentLoaded', (event) => {
+    mode.addEventListener("change",(event)=>{
+        GameMode = event.target
+        result.innerHTML = GameMode.value;
+    })
+});
 
-
-Match.addEventListener("click",()=>{
-    Match_value = Match.value;
-    result.innerHTML = Match_value;
-
-})
+document.addEventListener('DOMContentLoaded', (event) => {  
+    Match.addEventListener("click",(event)=>{
+        Match_value = event.target.value;
+        result.innerHTML = Match_value;
+    
+    })
+});
 
 play.addEventListener("click",()=>{
     start();
