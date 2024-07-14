@@ -7,21 +7,57 @@ let Computer_score = document.querySelector(".C_score");
 let U = 0;      // user score
 let C = 0;      // computer score
 let play = document.querySelector(".play")
+let reset = document.querySelector(".reset")
 let line = document.querySelector(".line")
-let GameMode;
-let Match = document.querySelector(".Match");
+let Match_value;
 let tick_sound = document.querySelector(".tick_sound")
 let win_sound = document.querySelector(".win_sound")
 let lose_sound = document.querySelector(".lose_sound")
 let result = document.querySelector(".result")
+let Match = document.querySelector(".Match");
+let mode  = document.querySelector("#gameModeSelect");
+let GameMode;
 
+
+mode.addEventListener("click",()=>{
+    GameMode = mode
+})
+
+
+Match.addEventListener("click",()=>{
+    Match_value = Match.value;
+})
+
+play.addEventListener("click",()=>{
+    start();
+})
+
+// reset.addEventListener("click",()=>{
+//     // U = 0;
+//     // C = 0;
+//     // User_score.innerHTML = ""
+//     // Computer_score.innerHTML = ""
+//     // entity.forEach(function(a,i){
+//     //     a.innerHTML = ""; // Reset the entity's inner HTML
+//     // })
+//     // line.style.display = "none"
+//     // mode.selectedIndex = 0;
+//     // Match.selectedIndex = 0;
+//     // result.innerHTML = ""
+//     location.reload();
+
+// })
+
+document.addEventListener('DOMContentLoaded', function() {
+    // var resetButton = document.getElementById('resetButton');
+
+    reset.addEventListener('click', function() {
+        location.reload();
+    });
+});
 
 function start(){
 
-    result.innerHTML = "";
-
-    GameMode = document.querySelector("#gameModeSelect")
-    Match_value = parseInt(localStorage.getItem("match"));
     if(GameMode.value == "friend"){    
         document.querySelector(".User").innerHTML = "User1_score (X):";
         document.querySelector(".User_type").innerHTML = "User2_score (O):";
@@ -29,7 +65,7 @@ function start(){
     else{
         document.querySelector(".User_type").innerHTML = "Computer_score (O) :";
     }
-   
+    
     
     entity.forEach(function(a,i){
         
@@ -42,32 +78,35 @@ function start(){
 // first move
 async function first_move(i){
     if(Match_value){
+        // console.log(Match_value)
 
         if( entity[i].innerHTML != "X" && entity[i].innerHTML != "O" && !gameEnded && !isComputerTurn && !user2){          // for user to tick 
             
             await tick();
             entity[i].innerHTML = "X";
-
+            winner_checker()
+            
             if(GameMode.value == "computer"){
                 isComputerTurn = true
+                await next_move()
+                isComputerTurn = false
             }
             else{
                 user2 = true;
             }
+            
 
-            winner_checker()
+            // if(GameMode.value == "computer"){
 
-            if(GameMode.value == "computer"){
+                
 
-                await next_move()
-                isComputerTurn = false
-
-            }
+            // }
             
             if(gameEnded){
                 Match_value = Match_value > 0 ? Match_value - 1 : 0;
-                localStorage.setItem("match",Match_value);                       
+                console.log(Match_value)
                 resetGame()
+                // localStorage.setItem("match",Match_value);                       
             }
 
             if(Match_value == 0){
@@ -85,13 +124,12 @@ async function first_move(i){
 
             if(gameEnded){
                 Match_value = Match_value > 0 ? Match_value - 1 : 0;
-                localStorage.setItem("match",Match_value);                       
                 resetGame()
             }
 
             if(Match_value == 0){
+                console.log("helo")
                 await win();
-               
             }
 
         }
@@ -114,21 +152,20 @@ async function win(){
         if(U>C){
             result.innerText = "X has won the game"
             win_sound.play();
-            GameMode.selectedIndex = 0; // Selects the first option (disabled default)
-            Match.selectedIndex = 0;
+            resolve(1);
+        }
+        else if(U<C && GameMode.value == "friend"){
+            result.innerText = "0 has won the game"
+            win_sound.play();
             resolve(1);
         }
         else if(U==C){
             result.innerText = "Draw!"
-            GameMode.selectedIndex = 0;
-            Match.selectedIndex = 0;
             resolve(1)
         }
         else{
             result.innerText = "0 has won the game"
             lose_sound.play();
-            GameMode.selectedIndex = 0; // Selects the first option (disabled default)
-            Match.selectedIndex = 0;
             resolve(1);
         }
     })
@@ -261,7 +298,6 @@ function winner_checker() {
             line.style.left = "0%";
             line.style.display = "block";
         },1000)
-
         localStorage.setItem("result", `${entity[0].innerHTML} is the winner`);
     }
 
@@ -271,7 +307,7 @@ function winner_checker() {
         setTimeout(()=>{
             line.style.top = "50.000%"
             line.style.left = "0%";
-            line.style.transform = "rotate(0deg) scale(0.8)"
+            line.style.transform = "rotate(0deg) scale(0.9)"
             line.style.display = "block";
         },1000)
         localStorage.setItem("result", `${entity[3].innerHTML} is the winner`);
@@ -283,7 +319,7 @@ function winner_checker() {
         gameEnded = true;
         setTimeout(()=>{
             line.style.top = "83.333%"
-            line.style.transform = "rotate(0deg) scale(0.8)"
+            line.style.transform = "rotate(0deg) scale(0.9)"
             line.style.left = "0%";
             line.style.display = "block";
         },1000)
@@ -297,7 +333,7 @@ function winner_checker() {
         console.log(`${entity[0].innerHTML} is the winner`)
         gameEnded = true;
         setTimeout(()=>{
-            line.style.transform = "rotate(90deg) scale(0.8)";
+            line.style.transform = "rotate(90deg) scale(0.9)";
             line.style.top = "50.0001%"
             line.style.left = "-33.33%"
             line.style.display = "block";
@@ -310,7 +346,7 @@ function winner_checker() {
         console.log(`${entity[1].innerHTML} is the winner`)
         gameEnded = true;
         setTimeout(()=>{
-            line.style.transform = "rotate(90deg) scale(0.8)";
+            line.style.transform = "rotate(90deg) scale(0.9)";
             line.style.top = "50.0001%"
             line.style.left = "0%"
             line.style.display = "block";
@@ -324,7 +360,7 @@ function winner_checker() {
         console.log(`${entity[2].innerHTML} is the winner`)
         gameEnded = true;
         setTimeout(()=>{
-            line.style.transform = "rotate(90deg) scale(0.8)";
+            line.style.transform = "rotate(90deg) scale(0.9)";
             line.style.top = "50.0001%"
             line.style.left = "33.33%"
             line.style.display = "block";
@@ -416,9 +452,9 @@ function winner_checker() {
 
 
 // to select the matches
-function match(){
-   localStorage.setItem("match",Match.value)
-}
+// function match(){
+//    localStorage.setItem("match",Match.value)
+// }
 
 
 // reset the game
@@ -432,9 +468,10 @@ function resetGame() {
         C++;
         Computer_score.innerHTML = C;
     }
-    console.log(Match_value)
+    // console.log(Match_value)
 
     if(Match_value != 0){
+        console.log(Match_value)
         setTimeout(()=>{
             entity.forEach(function(a) {
                 a.innerHTML = ""; // Reset the entity's inner HTML
