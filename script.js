@@ -23,6 +23,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     mode.addEventListener("change",(event)=>{
         GameMode = event.target
         result.innerHTML = GameMode.value;
+        if(GameMode.value == "friend"){    
+        document.querySelector(".User").innerHTML = "User1_score (X):";
+        document.querySelector(".User_type").innerHTML = "User2_score (O):";
+        }
+        else{
+            document.querySelector(".User_type").innerHTML = "Computer_score (O) :";
+        }
     })
 });
 
@@ -55,26 +62,14 @@ play.addEventListener("click",()=>{
 // })
 
 document.addEventListener('DOMContentLoaded', function() {
-    // var resetButton = document.getElementById('resetButton');
-
     reset.addEventListener('click', function() {
         location.reload();
     });
 });
 
 function start(){
-
-    if(GameMode.value == "friend"){    
-        document.querySelector(".User").innerHTML = "User1_score (X):";
-        document.querySelector(".User_type").innerHTML = "User2_score (O):";
-    }
-    else{
-        document.querySelector(".User_type").innerHTML = "Computer_score (O) :";
-    }
-    
     
     entity.forEach(function(a,i){
-        
         a.addEventListener("click",()=>{first_move(i)});
         a.addEventListener("touchstart",()=>{first_move(i)})  
     });
