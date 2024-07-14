@@ -9,14 +9,14 @@ let C = 0;      // computer score
 let play = document.querySelector(".play")
 let reset = document.querySelector(".reset")
 let line = document.querySelector(".line")
-let Match_value;
 let tick_sound = document.querySelector(".tick_sound")
 let win_sound = document.querySelector(".win_sound")
 let lose_sound = document.querySelector(".lose_sound")
 let result = document.querySelector(".result")
-let Match = document.querySelector(".Match");
+let Match = document.querySelector("#Match");
 let mode  = document.querySelector("#gameModeSelect");
 let GameMode;
+let Match_value;
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
