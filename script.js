@@ -17,6 +17,8 @@ let Match = document.querySelector("#Match_select");
 let mode  = document.querySelector("#gameModeSelect");
 let GameMode;
 let Match_value;
+let round = document.querySelector(".round")
+let R=1;
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -34,29 +36,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 document.addEventListener('DOMContentLoaded', (event) => {  
     Match.addEventListener("change",(event)=>{
-        Match_value = event.target.value;    
+        Match_value = event.target.value;
     })
 });
 
 play.addEventListener("click",()=>{
-    start();
+    if(Match_value != null && GameMode != null){
+        start();
+        if(Match_value != 1){
+            round.style.display = "block"
+            round.innerText = `Round: ${R}`
+        }
+    }
 })
 
-// reset.addEventListener("click",()=>{
-//     // U = 0;
-//     // C = 0;
-//     // User_score.innerHTML = ""
-//     // Computer_score.innerHTML = ""
-//     // entity.forEach(function(a,i){
-//     //     a.innerHTML = ""; // Reset the entity's inner HTML
-//     // })
-//     // line.style.display = "none"
-//     // mode.selectedIndex = 0;
-//     // Match.selectedIndex = 0;
-//     // result.innerHTML = ""
-//     location.reload();
 
-// })
 
 document.addEventListener('DOMContentLoaded', function() {
     reset.addEventListener('click', function() {
@@ -93,18 +87,10 @@ async function first_move(i){
                 user2 = true;
             }
             
-
-            // if(GameMode.value == "computer"){
-
-                
-
-            // }
             
             if(gameEnded){
                 Match_value = Match_value > 0 ? Match_value - 1 : 0;
-                console.log(Match_value)
                 resetGame()
-                // localStorage.setItem("match",Match_value);                       
             }
 
             if(Match_value == 0){
@@ -171,21 +157,6 @@ async function win(){
 }
 
 // for computer to tick
-// async function next_move(){
-
-//     await new Promise(resolve=> setTimeout(resolve,500))
-//     let random = Math.floor(Math.random()*9)
-    
-//     if(!gameEnded && entity[random].innerHTML != "X" && entity[random].innerHTML != "O"){
-//         entity[random].innerHTML = "O";   
-//         winner_checker()
-//     }
-
-//     else if(gameEnded != true){
-//         await next_move()
-//     }
-    
-// }
 async function next_move() {
     await new Promise(resolve => setTimeout(resolve, 500));
     
@@ -469,13 +440,14 @@ function resetGame() {
     // console.log(Match_value)
 
     if(Match_value != 0){
-        console.log(Match_value)
+        R++;
         setTimeout(()=>{
             entity.forEach(function(a) {
                 a.innerHTML = ""; // Reset the entity's inner HTML
-                line.style.display = "none"
-                gameEnded = false
             });
+            line.style.display = "none"
+            gameEnded = false
+            round.innerText = `Round: ${R}`
         },2000)
     }
         
@@ -486,7 +458,6 @@ function resetGame() {
 window.addEventListener("load",()=>{
     localStorage.clear()
 })
-
 
 
 
